@@ -1,17 +1,34 @@
-//npm - global command
+const {readFile} =require('fs')
 
-//local dependency - use only in a particular project
-//npm i <packageName>
+const getText = (path) =>{
+    return new Promise((resolve, reject)=>{
+        
+        readFile(path,'utf8',(err,data) =>{
+            if(err){
+                reject(err)
+            }
+            else{
+                resolve(data)
+            }
+        })
+    })
+}
 
-//global dependancy - use in any project
-//npm install -g <packageName>
 
-//package,json - manifest file(store important info about project/package)
-//manual approach (create package.json in the rrot,create prperties etc.)
-//npm init (step by step, press enter to skip)
-// npm init -y(everything default)
 
-const _ = require('lodash')
-const items =[1,[2,[3,[4]]]]
-const newItems = _.flattenDeep(items)
-console.log(newItems)
+const start = async() =>{
+    try {
+        const first = await getText('./folder/first.txt');
+        console.log(first)
+    } catch (error) {
+        console.log(error)
+    }
+    
+   
+}
+
+start()
+
+// getText('./folder/first.txt')
+// .then(result => console.log(result))
+// .catch(err => console.log(err))
